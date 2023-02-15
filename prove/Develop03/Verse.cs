@@ -3,22 +3,16 @@ using System;
 
 class Verse
 {
-    private string _book;
-    private int _chapter;
     private int _verse;
     private List<Word> _words;
     private int _length;
 
     public Verse() {
-        _book = "Moses";
-        _chapter = 3;
         _verse = 39;
         _words = Parse("For behold, this is my work and my glory—to bring to pass the immortality and eternal life of man.");
         _length = _words.Count;
     }
-    public Verse(string book, int chapter, int verse, string text) {
-        _book = book;
-        _chapter = chapter;
+    public Verse(int verse, string text) {
         _verse = verse;
         _words = Parse(text);
         _length = _words.Count;

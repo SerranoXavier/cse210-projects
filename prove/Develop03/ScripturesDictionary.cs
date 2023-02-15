@@ -23,7 +23,7 @@ class ScripturesDictionary
 
             List<Verse> verses = new List<Verse>();
             for (int i = 0; i < versesTexts.Count(); i ++) {
-                Verse verse = new Verse(book, chapter, versesNumbers[i], versesTexts[i]);
+                Verse verse = new Verse(versesNumbers[i], versesTexts[i]);
                 verses.Add(verse);
             }
 
