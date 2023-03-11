@@ -6,7 +6,7 @@ public abstract class Goal
     private protected string _description;
     private protected int _points;
     private protected bool _isAchieved;
-    //add dates start and date end
+    private protected DateTime _dateAccomplished;
 
 
     public Goal(string title, string description, int points)
@@ -16,12 +16,13 @@ public abstract class Goal
         _points = points;
         _isAchieved = false;
     }
-    public Goal(string title, string description, int points, bool isAchieved)
+    public Goal(string title, string description, int points, bool isAchieved, DateTime dateAccomplished)
     {
         _title = title;
         _description = description;
         _points = points;
         _isAchieved = isAchieved;
+        _dateAccomplished = dateAccomplished;
     }
 
     public abstract void DisplayGoal();

@@ -2,15 +2,11 @@ using System;
 
 public class SimpleGoal : Goal
 {
-    private DateTime _dateAccomplished;
-
-
     public SimpleGoal(string title, string description, int points) : base(title, description, points)
     {
     }
-    public SimpleGoal(string title, string description, int points, bool isAchieved, DateTime dateAccomplished) : base(title, description, points, isAchieved)
+    public SimpleGoal(string title, string description, int points, bool isAchieved, DateTime dateAccomplished) : base(title, description, points, isAchieved, dateAccomplished)
     {
-        _dateAccomplished = dateAccomplished;
     }
 
     public override void DisplayGoal()

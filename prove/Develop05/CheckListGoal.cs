@@ -5,7 +5,6 @@ public class ChecklistGoal : Goal
     private int _numberIterationsTotal;
     private int _numberIterationsDone;
     private int _bonus;
-    private DateTime _dateAccomplished;
 
 
     public ChecklistGoal(string title, string description, int points, int numberIterationsTotal, int bonus) : base(title, description, points)
@@ -14,12 +13,11 @@ public class ChecklistGoal : Goal
         _numberIterationsDone = 0;
         _bonus = bonus;
     }
-    public ChecklistGoal(string title, string description, int points, bool isAchieved, int numberIterationsTotal, int numberIterationsDone, int bonus, DateTime dateAccomplished) : base(title, description, points, isAchieved)
+    public ChecklistGoal(string title, string description, int points, bool isAchieved, int numberIterationsTotal, int numberIterationsDone, int bonus, DateTime dateAccomplished) : base(title, description, points, isAchieved, dateAccomplished)
     {
         _numberIterationsTotal = numberIterationsTotal;
         _numberIterationsDone = numberIterationsDone;
         _bonus = bonus;
-        _dateAccomplished = dateAccomplished;
     }
 
     public override void DisplayGoal()
