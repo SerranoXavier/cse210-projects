@@ -1,0 +1,4 @@
+1100
+SimpleGoal~|~Simple Goal~|~Test~|~100~|~True~|~11/03/2023 03:05:38
+EternalGoal~|~Eternal Goal~|~Test~|~100~|~2
+CheckListGoal~|~Checklist Goal~|~Test~|~100~|~True~|~3~|~3~|~500~|~11/03/2023 03:06:30
