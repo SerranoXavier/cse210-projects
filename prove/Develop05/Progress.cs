@@ -63,7 +63,7 @@ public class Progress
         {
             Spinner spinner = new Spinner();
             Console.WriteLine("There is no goals.");
-            spinner.Wait(3);
+            // spinner.Wait(3);
         }
         else
         {
@@ -161,7 +161,11 @@ public class Progress
             string fileName = Console.ReadLine();
 
             // Write the points and the goals into a file
-            using (StreamWriter outputFile = new StreamWriter($"{fileName}.txt"))
+            if (!fileName.Contains(".txt"))
+            {
+                fileName += ".txt";
+            }
+            using (StreamWriter outputFile = new StreamWriter(fileName))
             {
                 outputFile.WriteLine(_totalPoints);
                 foreach (Goal goal in _goals)
