@@ -2,15 +2,15 @@ using System;
 
 public class AlertQuantity : Alert
 {
-
-    public AlertQuantity(int id, Food food) : base(id, food)
+    public AlertQuantity(Food food) : base(food)
     {
     }
 
     public override void Display()
     {
-        Console.ForegroundColor = ConsoleColor.Red;
+        Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write("Low quantity for: ");
+        Console.ResetColor();
         _food.Display();
     }
 }

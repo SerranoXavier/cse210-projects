@@ -4,7 +4,7 @@ public class Validator
 {
     public int GetValidInt(string prompt, bool strictlyPositive = true)
     {
-        int number;
+        int number = -1;
         Spinner spinner = new Spinner();
         if (strictlyPositive)
         {
@@ -14,7 +14,7 @@ public class Validator
                 string input = Console.ReadLine();
                 if(int.TryParse(input, out number)) // test if input can be parse as an integer
                 {
-                    if (int.Parse(input) > 0 && strictlyPositive )
+                    if (int.Parse(input) > 0)
                     {
                         number = int.Parse(input);
                     }
@@ -56,6 +56,60 @@ public class Validator
         }
         return number;
     }
+public int GetValidInt(string prompt, int max, bool strictlyPositive = true)
+    {
+        int number = -1;
+        Spinner spinner = new Spinner();
+        if (strictlyPositive)
+        {
+            do
+            {
+                Console.Write($"{prompt} ");
+                string input = Console.ReadLine();
+                if(int.TryParse(input, out number)) // test if input can be parse as an integer
+                {
+                    if (int.Parse(input) > 0 && int.Parse(input) <= max)
+                    {
+                        number = int.Parse(input);
+                    }
+                    else{
+                        Console.WriteLine("This is not a valid number.");
+                        spinner.Wait(2);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("This is not a valid number.");
+                    spinner.Wait(2);
+                }
+            } while (number <= 0 || number > max);
+        }
+        else
+        {
+            do
+            {
+                Console.Write($"{prompt} ");
+                string input = Console.ReadLine();
+                if(int.TryParse(input, out number)) // test if input can be parse as an integer
+                {
+                    if (int.Parse(input) >= 0 && int.Parse(input) <= max)
+                    {
+                        number = int.Parse(input);
+                    }
+                    else{
+                        Console.WriteLine("This is not a valid number.");
+                        spinner.Wait(2);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("This is not a valid number.");
+                    spinner.Wait(2);
+                }
+            } while (number < 0 || number > max);
+        }
+        return number;
+    }
     public double GetValidDouble(string prompt, bool strictlyPositive = true)
     {
         double number;
@@ -68,7 +122,7 @@ public class Validator
                 string input = Console.ReadLine();
                 if(double.TryParse(input, out number)) // test if input can be parse as an double
                 {
-                    if (double.Parse(input) > 0 && strictlyPositive )
+                    if (double.Parse(input) > 0)
                     {
                         number = double.Parse(input);
                     }

@@ -1,128 +1,167 @@
 using System;
+using System.Globalization;
+
 
 class Program
 {
     static void Main(string[] args)
     {
-        // creation of menus (main menu and Add Food menu)
+        // creation of menus (main menu, Location Manager menu and Grocery List Manager menu)
         Menu mainMenu = new Menu("Food Inventory");
         mainMenu.AddMenuOption(1, "List Locations");
         mainMenu.AddMenuOption(2, "List Food by Location");
         mainMenu.AddMenuOption(3, "List Alerts");
-        mainMenu.AddMenuOption(4, "Add Food");
-        mainMenu.AddMenuOption(5, "Remove Food");
-        mainMenu.AddMenuOption(6, "Add Location");
-        mainMenu.AddMenuOption(7, "Remove Location");
-        mainMenu.AddMenuOption(8, "Quit");
+        mainMenu.AddMenuOption(4, "List Grocery Lists");
+        mainMenu.AddMenuOption(5, "Add Food");
+        mainMenu.AddMenuOption(6, "Remove Food");
+        mainMenu.AddMenuOption(7, "Location Manager");
+        mainMenu.AddMenuOption(8, "Grocery List Manager");
+        mainMenu.AddMenuOption(9, "Quit");
+
+        Menu locationMenu = new Menu("Location Manager");
+        locationMenu.AddMenuOption(1, "List Locations");
+        locationMenu.AddMenuOption(2, "Add Location");
+        locationMenu.AddMenuOption(3, "Remove Location");
+        locationMenu.AddMenuOption(4, "Main Menu");
+
+        Menu groceryListMenu = new Menu("Grocery List Manager");
+        groceryListMenu.AddMenuOption(1, "List Grocery List");
+        groceryListMenu.AddMenuOption(2, "Export Grocery List");
+        groceryListMenu.AddMenuOption(3, "Add Grocery List");
+        groceryListMenu.AddMenuOption(4, "Edit Grocery Lists");
+        groceryListMenu.AddMenuOption(5, "Remove Grocery List");
+        groceryListMenu.AddMenuOption(6, "Main Menu");
 
         // creation of global variables
         int optionMain = 0;
+        int optionLocation = 0;
+        int optionGroceryList = 0;
+        float quantityThreshold = 2; // quantity below which an alert is risen
+        int days = 7; // number of days before when an alert is risen
+        string prompt = "What would you like to do?"; // prompt for asking the menus option
+        string fileHome = "Home.txt"; // filename where to store Home data
+        string fileLocation = "Location.txt"; // filename where to store Location data
+        string fileGroceryList = "GroceryList.txt"; // filename where to store GroceryList data
+        string fileFood = "Food.txt"; // filename where to store Food data
+
         Spinner spinner = new Spinner();
         Validator validator = new Validator();
 
 
-        List<Food> listFoodPantry = new List<Food>()
-        {
-            new BulkFood(0, "Banana", 1.5),
-            new PackedFood(0, "Almonds", 2, DateTime.Parse("31/07/2024"), "jar")
-        };
-        List<Food> listFoodFridge = new List<Food>()
-        {
-            new Beverage(0, "Milk", 4, DateTime.Parse("05/04/2023"))
-        };
-
-        List<Location> listLocationHome = new List<Location>()
-        {
-            new Location(0, "Fridge", listFoodFridge),
-            new Location(0, "Pantry", listFoodPantry)
-        };
-        List<GroceryList> listGroceryList = new List<GroceryList>()
-        {
-            new GroceryList(0, "Fridge", listFoodFridge),
-            new GroceryList(0, "Pantry", listFoodPantry)
-        };
-
-        Home home = new Home(0, "Home", listLocationHome, listGroceryList);
+        // create new Home
+        Home home = new Home(1);
+        // Load Home from saved file
+        home.Load(fileHome, fileLocation, fileGroceryList, fileFood);
 
         // start
         do
         {
-            string prompt = "What would you like to do?";
             optionMain = mainMenu.AskOption(prompt);
 
             switch(optionMain)
             {
                 case 1: // List Locations
                 {
-                    int option = -1;
-                    while (option != 0)
-                    {
-                        Console.Clear();
-                        home.DisplayLocations();
-                        Console.WriteLine();
-                        option = validator.GetValidInt("Choose a Location to visualize (type 0 to go back to the main menu): ", false);
-
-                        Console.Clear();
-                        if (option > 0)
-                        {
-                            home.DisplayOneLocation(option - 1);
-                            Console.WriteLine();
-                            Console.WriteLine("Hit a key to exit...");
-                            Console.ReadLine();
-                        }
-                    }
+                    home.AskLocation();
                 }
                 break;
                 case 2: // List Food by Location
                 {
-                    Console.Clear();
-                    Console.WriteLine("Work in progress...");
-                    Console.WriteLine("Hit a key to exit...");
-                    Console.ReadLine();
+                    home.DisplayFoodByLocation();
                 }
                 break;
                 case 3: // List Alerts
                 {
-                    Console.Clear();
-                    Console.WriteLine("Work in progress...");
-                    Console.WriteLine("Hit a key to exit...");
-                    Console.ReadLine();
+                    home.DisplayAlerts(quantityThreshold, days);
                 }
                 break;
-                case 4: // Add Food
+                case 4: // List Grocery Lists
                 {
-                    Console.Clear();
+                    home.AskGroceryList();
+                }
+                break;
+                case 5: // Add Food
+                {
                     home.AddFood();
                 }
                 break;
-                case 5: // Remove Food
+                case 6: // Remove Food
                 {
-                    Console.Clear();
-                    Console.WriteLine("Work in progress...");
-                    Console.WriteLine("Hit a key to exit...");
-                    Console.ReadLine();
+                    home.RemoveFood();
                 }
                 break;
-                case 6: // Add Location
+                case 7: // Location Manager
                 {
-                    Console.Clear();
-                    Console.WriteLine("Work in progress...");
-                    Console.WriteLine("Hit a key to exit...");
-                    Console.ReadLine();
+                    do
+                    {
+                        optionLocation = locationMenu.AskOption(prompt);
+                        switch(optionLocation)
+                        {
+                            case 1: // Add Location
+                            {
+                                home.AskLocation();
+                            }
+                            break;
+                            case 2: // Add Location
+                            {
+                                home.AddLocation();
+                            }
+                            break;
+                            case 3: // Remove Location
+                            {
+                                home.RemoveLocation();
+                            }
+                            break;
+                        }
+                    } while (optionLocation != 4);
                 }
                 break;
-                case 7: // Remove Location
+                case 8: // Grocery List Manager
                 {
-                    Console.Clear();
-                    Console.WriteLine("Work in progress...");
-                    Console.WriteLine("Hit a key to exit...");
-                    Console.ReadLine();
+                    do
+                    {
+                        optionGroceryList = groceryListMenu.AskOption(prompt);
+                        switch(optionGroceryList)
+                        {
+                            case 1: // List Grocery Lists
+                            {
+                                home.AskGroceryList();
+                            }
+                            break;
+                            case 2: // Export Grocery List
+                            {
+                                home.ExportGroceryList();
+                            }
+                            break;
+                            case 3: // Add Grocery List
+                            {
+                                home.AddGroceryList();
+                            }
+                            break;
+                            case 4: // Edit Grocery Lists
+                            {
+                                home.EditGroceryList();
+                            }
+                            break;
+                            case 5: // Remove Grocery List
+                            {
+                                home.RemoveGroceryList();
+                            }
+                            break;
+                        }
+                    } while (optionGroceryList != 6);
                 }
                 break;
             }
-        } while (optionMain != 8);
+        } while (optionMain != 9);
     
+
+    home.Save();
+    Console.Clear();
+    Console.WriteLine("Food Inventory has been saved.");
+    spinner.Wait(2);
     Console.Clear();
     Console.WriteLine("Goodbye!");
+    Console.WriteLine();
     }
 }

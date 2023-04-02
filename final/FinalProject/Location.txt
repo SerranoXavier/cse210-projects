@@ -1,0 +1,4 @@
+1~|~1~|~Fridge
+2~|~1~|~Deep Freezer
+3~|~1~|~Pantry
+4~|~1~|~Storage
