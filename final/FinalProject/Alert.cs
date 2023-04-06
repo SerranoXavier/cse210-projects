@@ -2,7 +2,7 @@ using System;
 
 public abstract class Alert
 {
-    private protected Food _food;
+    protected Food _food;
 
 
     public Alert(Food food)
