@@ -2,11 +2,11 @@ using System;
 
 public abstract class Food
 {
-    private protected int? _idLocation;
-    private protected int? _idGroceryList;
-    private protected string _name;
-    private protected double _quantity;
-    private protected DateTime _expirationDate;
+    protected int? _idLocation;
+    protected int? _idGroceryList;
+    protected string _name;
+    protected double _quantity;
+    protected DateTime _expirationDate;
 
 
     public Food(int? idLocation, int? idGroceryList, string name)
